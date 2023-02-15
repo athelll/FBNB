@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """FileStorage Class"""
 import json
+from models.base_model import BaseModel
 
 class FileStorage:
 
@@ -20,15 +21,14 @@ class FileStorage:
             new_dict[key] = obj.to_dict()
 
         with open(self.__file_path, "w+") as f:
-            json.dump(new_dict, f)
+            json.dump(new_dict, f, indent=2)
 
     def reload(self):
         try:
-            with open(self.__file_path, "rt") as f:
+            with open(self.__file_path, "r") as f:
                 obj = json.load(f)
-                
-            for key, value in obj.items():
-                setattr(self.__objects, key, value)
-
+            for value in obj.values():
+                cls = BaseModel(**value)
+                self.new(cls)
         except Exception:
             pass
