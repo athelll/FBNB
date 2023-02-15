@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """This is the basemodel class"""
 
-import uuid
 from datetime import datetime
+import models
+import uuid
 
 class BaseModel:
     """BaseModel Class"""
@@ -22,11 +23,12 @@ class BaseModel:
                                                        "%Y-%m-%dT%H:%M:%S.%f")
                 else:
                     setattr(self, key, value)
-                self.id = str(uuid.uuid4())
+            self.id = str(uuid.uuid4())
         else:
             self.id = str(uuid.uuid4())
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
+            models.storage.new(self)
 
     def __str__(self):
         """handles string representation of class"""
@@ -35,11 +37,16 @@ class BaseModel:
     def save(self):
         """saves change to basemodel"""
         self.updated_at = datetime.now()
+        models.storage.save()
 
     def to_dict(self):
         """converst instance data into dictionary"""
-        diction = self.__dict__
+        diction = {}
+        for keys, values in self.__dict__.items():
+            if keys == 'created_at' or keys == 'updated_at':
+                diction[keys] = values.isoformat()
+            else:
+                diction[keys] = values     
         diction['__class__'] = self.__class__.__name__
-        diction['created_at'] = str(self.created_at.isoformat())
-        diction['updated_at'] = str(self.updated_at.isoformat())
+
         return diction
