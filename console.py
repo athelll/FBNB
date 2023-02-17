@@ -111,12 +111,47 @@ class FBNBCommand(cmd.Cmd):
         else:
             print("** class doesn't exist **")
 
+    @staticmethod
+    def my_split(input_str, delimeter, arg_num):
+        splitted = str(input_str).split(delimeter)
+
+        sliced = [None] * arg_num
+        for i, word in enumerate(splitted):
+            if i < arg_num:
+                sliced[i] = word
+        # returns splitted list        
+        return sliced
+
     def do_update(self, line):
         """updates an objects data"""
-        pass
-        
 
-        
+        if line == "":
+            print('** class name missing **')
+            return
+
+        cls, idd, attr, val = FBNBCommand.my_split(line, " ", 4)
+        objects = models.storage.all()
+
+        if cls in self.clas:
+            if idd is not None:
+                for obj in objects.values():
+                    if idd == obj.id:
+                        if attr is not None:
+                            if val is not None:
+                                val = str(val)[1:-1]
+                                setattr(obj, attr, val)
+                                models.storage.save()
+                                return
+                            else:
+                                print("** value missing **")
+                        else:
+                            print("** attribute name missing **")
+                    else:
+                        print("** no instance found **")
+            else:
+                print("** instance id missing **")
+        else:
+            print("** class doesn't exist **")
         
 if __name__ == "__main__":
     FBNBCommand().cmdloop()
