@@ -3,12 +3,14 @@ import cmd
 import os
 import models
 from models.base_model import BaseModel
+from models.user import User
 from colorama import Fore
 
 class FBNBCommand(cmd.Cmd):
 
     clas = {
-            'BaseModel'
+            'BaseModel',
+            'User'
             }
     
     prompt = '({}{}) '.format(Fore.GREEN + "FBNB", Fore.RESET)
@@ -18,7 +20,7 @@ class FBNBCommand(cmd.Cmd):
             try:
                 print(eval("self.do_{}.__doc__".format(arg)))
             except AttributeError:
-                print('ERROR: command does not exist')
+                print('{}{}: command does not exist'.format(Fore.RED + "ERROR", Fore.RESET))
                 return
         else:
             return super().do_help(arg)
@@ -103,11 +105,14 @@ class FBNBCommand(cmd.Cmd):
 
     def do_all(self, line):
         """prints all created objects"""
-        if line in self.clas or line == "":
-            objs = models.storage.all()
+        objs = models.storage.all()
+        if line == "":
             for obj in objs.values():
                 print(obj)
-
+        elif line in self.clas:
+            for obj in objs.values():
+                if obj.__class__.__name__ == line:
+                    print(obj)
         else:
             print("** class doesn't exist **")
 

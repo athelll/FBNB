@@ -2,6 +2,7 @@
 """FileStorage Class"""
 import json
 from models.base_model import BaseModel
+from models.user import User
 
 class FileStorage:
 
@@ -28,7 +29,7 @@ class FileStorage:
             with open(self.__file_path, "r") as f:
                 obj = json.load(f)
             for value in obj.values():
-                cls = BaseModel(**value)
-                self.new(cls)
+                cls = value["__class__"]
+                self.new(eval(cls)(**value))
         except Exception:
             pass
