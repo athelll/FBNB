@@ -11,7 +11,7 @@ class FBNBCommand(cmd.Cmd):
             'BaseModel'
             }
     
-    prompt = '({}{}) '.format(Fore.BLUE + "FBNB", Fore.RESET)
+    prompt = '({}{}) '.format(Fore.GREEN + "FBNB", Fore.RESET)
 
     def do_help(self, arg):
         if arg:
@@ -130,28 +130,26 @@ class FBNBCommand(cmd.Cmd):
             return
 
         cls, idd, attr, val = FBNBCommand.my_split(line, " ", 4)
-        objects = models.storage.all()
+        objects = models.storage.all().values()
+        ids = [i.id for i in objects]
+      
 
-        if cls in self.clas:
-            if idd is not None:
-                for obj in objects.values():
-                    if idd == obj.id:
-                        if attr is not None:
-                            if val is not None:
-                                val = str(val)[1:-1]
-                                setattr(obj, attr, val)
-                                models.storage.save()
-                                return
-                            else:
-                                print("** value missing **")
-                        else:
-                            print("** attribute name missing **")
-                    else:
-                        print("** no instance found **")
-            else:
-                print("** instance id missing **")
-        else:
+        if cls not in self.clas:
             print("** class doesn't exist **")
-        
+        elif idd is None:
+            print("** instance id missing **")
+        elif idd not in ids:
+            print("** no instance found **")    
+        elif attr is None:
+            print("** attribute name missing **")
+        elif val is None:
+            print("** value missing **")
+        else:
+            for obj in objects:
+                if idd == obj.id:
+                    val = str(val)[1:-1]
+                    setattr(obj, attr, val)
+                    models.storage.save() 
+                
 if __name__ == "__main__":
     FBNBCommand().cmdloop()
