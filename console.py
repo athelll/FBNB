@@ -83,6 +83,9 @@ class FBNBCommand(cmd.Cmd):
         except ValueError:
             cls, idd = line, ""
 
+        if idd[0] == "\"" and idd[-1] == "\"":
+            idd = idd.replace("\"", "")
+
         if cls in self.clas:
             if idd != "":
                 objs = models.storage.all()
@@ -107,6 +110,9 @@ class FBNBCommand(cmd.Cmd):
             cls, idd = str(line).split()
         except ValueError:
             cls, idd = line, ""
+
+        if idd[0] == "\"" and idd[-1] == "\"":
+            idd = idd.replace("\"", "")
 
         if cls in self.clas:
             if idd != "":
@@ -170,12 +176,16 @@ class FBNBCommand(cmd.Cmd):
         elif val is None:
             print("** value missing **")
         else:
+            if idd[0] == "\"" and idd[-1] == "\"":
+                idd = idd.replace("\"", "")
+
             for obj in objects:
                 if idd == obj.id:
-                    if val[0] == "\"" and val[-1] == "\"":
-                        val.replace("\"", "")
-                    setattr(obj, attr, val)
-                    models.storage.save()
+                    if obj.__class__.__name__ == cls:
+                        if val[0] == "\"" and val[-1] == "\"":
+                            val = val.replace("\"", "")
+                            setattr(obj, attr, val)
+                            models.storage.save()
 
     def do_count(self, line):
         objs = models.storage.all()
