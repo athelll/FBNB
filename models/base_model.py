@@ -5,6 +5,7 @@ from datetime import datetime
 import models
 import uuid
 
+
 class BaseModel:
     """BaseModel Class"""
 
@@ -28,7 +29,8 @@ class BaseModel:
 
     def __str__(self):
         """handles string representation of class"""
-        return "[{}] ({}) {}".format(self.__class__.__name__, self.id, self.__dict__)
+        return "[{}] ({}) {}".format(self.__class__.__name__,
+                                     self.id, self.__dict__)
 
     def save(self):
         """saves change to basemodel"""
