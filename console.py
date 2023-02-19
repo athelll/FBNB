@@ -1,6 +1,7 @@
-#!/usr/bin/env python3
-"""This is the console"""
-
+#!/usr/bin/python3
+"""
+This is the console
+"""
 
 import cmd
 import os
@@ -232,7 +233,5 @@ class FBNBCommand(cmd.Cmd):
                 rest = params.groups()[1].split(", ")
                 commands[args[1]](args[0] + " " + params.groups()[0] + " " +
                                   rest[0] + " " + rest[1])
-
-
-if __name__ == "__main__":
+if __name__ == '__main__':
     FBNBCommand().cmdloop()
