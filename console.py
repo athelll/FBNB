@@ -59,19 +59,39 @@ class FBNBCommand(cmd.Cmd):
         """clears screen"""
         os.system('clear')
 
-    def do_create(self, line):
-        """creates a new class"""
-        if line == "":
-            print('** class name missing **')
+    def do_create(self, arg):
+        """ Create an object of any class"""
+        if not arg:
+            print("** class name missing **")
+            return
+        try:
+            list_arg = arg.split(' ')
+            args = list_arg[0]
+
+            if args not in FBNBCommand.clas:
+                print("** class doesn't exist **")
+                return
+
+            other_args = list_arg[1:]
+            kwargs = {}
+
+            for value in other_args:
+                attr, val = value.split('=')
+                val = eval(val)
+                if type(val) is str:
+                    val.replace("_", " ").replace('"','')
+                # returns dict
+                kwargs[attr] = val
+
+        except IndexError:
+            new_instance = eval('{}()'.format(args))
+            new_instance.save()
+            print(new_instance.id)
             return
 
-        if line in self.clas:
-            cls = eval("{}()".format(line))
-            print(cls.id)
-            models.storage.new(cls)
-            models.storage.save()
-        else:
-            print("** class doesn't exist **")
+        new_instance = eval('{}(**kwargs)'.format(args))
+        new_instance.save()
+        print(new_instance.id)
 
     def do_show(self, line):
         """shows class object with argumented id"""
