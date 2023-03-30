@@ -109,7 +109,7 @@ class FBNBCommand(cmd.Cmd):
 
         if cls in self.clas:
             if idd != "":
-                objs = models.storage.all()
+                objs = models.storage.all(cls)
                 for obj in objs.values():
                     if obj.__class__.__name__ == cls:
                         if idd == obj.id:
@@ -152,13 +152,14 @@ class FBNBCommand(cmd.Cmd):
 
     def do_all(self, line):
         """prints all created objects"""
-        objs = models.storage.all()
-        if line == "":
-            for obj in objs.values():
+        if line is None:
+            for obj in models.storage.all().values():
                 print(obj)
-        elif line in self.clas:
+            return
+
+        if line in self.clas:
+            objs = models.storage.all(line)
             for obj in objs.values():
-                if obj.__class__.__name__ == line:
                     print(obj)
         else:
             print("** class doesn't exist **")

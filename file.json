@@ -1,31 +1,32 @@
 {
-  "Place.2cc7e179-e552-4784-983a-7ef34a1f14ca": {
-    "id": "2cc7e179-e552-4784-983a-7ef34a1f14ca",
-    "city_id": "0001",
-    "user_id": "0001",
-    "name": "My_little_house",
-    "number_rooms": 4,
-    "number_bathrooms": 2,
-    "max_guest": 10,
-    "price_by_night": 300,
-    "latitude": 37.773972,
-    "longitude": -122.431297,
-    "created_at": "2023-03-28T20:31:10.142896",
-    "updated_at": "2023-03-28T20:31:10.142904",
+  "State.23e2bd1f-e4ef-46ee-a620-df7f3a2aeb3b": {
+    "id": "23e2bd1f-e4ef-46ee-a620-df7f3a2aeb3b",
+    "created_at": "2023-03-30T18:56:28.587672",
+    "updated_at": "2023-03-30T18:56:28.587688",
+    "__class__": "State"
+  },
+  "User.47861920-5368-4ae1-b3e2-71c10ca3957e": {
+    "id": "47861920-5368-4ae1-b3e2-71c10ca3957e",
+    "created_at": "2023-03-30T18:56:28.587948",
+    "updated_at": "2023-03-30T18:56:28.587960",
+    "__class__": "User"
+  },
+  "Place.d1738650-0385-41d2-b4d1-066daa6ab9ff": {
+    "id": "d1738650-0385-41d2-b4d1-066daa6ab9ff",
+    "created_at": "2023-03-30T18:56:28.588191",
+    "updated_at": "2023-03-30T18:56:28.588204",
     "__class__": "Place"
   },
-  "State.4d6474dc-838b-432f-91d2-ec7b5297a3d7": {
-    "id": "4d6474dc-838b-432f-91d2-ec7b5297a3d7",
-    "created_at": "2023-03-28T20:31:10.143882",
-    "updated_at": "2023-03-28T20:31:10.143889",
-    "name": "California",
+  "State.a1718045-1636-45f2-a9d6-23cfb8bbf3cc": {
+    "id": "a1718045-1636-45f2-a9d6-23cfb8bbf3cc",
+    "created_at": "2023-03-30T18:56:28.588426",
+    "updated_at": "2023-03-30T18:56:28.588438",
     "__class__": "State"
   },
-  "State.796fc55b-16d0-47c8-ba31-da0fb8794e79": {
-    "id": "796fc55b-16d0-47c8-ba31-da0fb8794e79",
-    "created_at": "2023-03-28T20:31:10.145051",
-    "updated_at": "2023-03-28T20:31:10.145057",
-    "name": "Nevada",
-    "__class__": "State"
+  "User.a878e1f0-a16a-484d-9c86-76171708cca1": {
+    "id": "a878e1f0-a16a-484d-9c86-76171708cca1",
+    "created_at": "2023-03-30T18:57:01.033877",
+    "updated_at": "2023-03-30T18:57:01.033906",
+    "__class__": "User"
   }
 }

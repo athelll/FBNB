@@ -17,6 +17,8 @@ class FileStorage:
 
     def all(self, cls=None):
         """returns all objects"""
+        if type(cls) is str:
+            cls = eval('{}().__class__'.format(cls))
         if cls is not None:
             objs = {}
             for key, obj in self.__objects.items():
